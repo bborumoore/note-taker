@@ -8,17 +8,35 @@ const util = require('util');
 module.exports = (app) => {
   // These are to handle the different potential user api requests
   // Get request to pull all notes in the file
-  app.get('/api/notes', (req, res) => {
-    console.log(res)
-    res.json(fs.readFile('../db/db.json', 'utf8' , (err, data) => {
-      console.log(data)
-    }))
-  });
+  app.get("/api/notes", function(req, res){
+    fs.readFile("./db/db.json", "utf-8", function(err, data){
+        if(err){
+            throw err;
+        }
+       const notes = JSON.parse(data);
+       console.log(notes);
+       return res.json(notes);
+    });
+})
 
   // Post request to create new note
-  app.post('/api/notes', (req, res) => {
-    
-  });
+  app.post("/api/notes",function(req, res){
+    const note = req.body;
+    fs.readFile("./db/db.json", "utf-8", function(err, data){
+        if(err){
+            throw err;
+        }
+       let notes = JSON.parse(data);
+       notes.push(note);
+       notes = JSON.stringify(notes);
+    fs.writeFile("./db/db.json", notes, function(err){
+        if(err){
+            throw err;
+        }
+    })
+    });
+    return res.json(note);
+})
 
   // Delete request to remove a unique note
   app.delete('/api/notes', (req, res) => {
