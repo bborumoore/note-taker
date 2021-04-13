@@ -3,7 +3,7 @@
 
   ---
   ### Table of Contents
-  - [Descritption](#description)
+  - [Description](#description)
   - [Installation Instructions](#installation-instructions)
   - [How To Use](#how-to-use)  
   - [Contribution Guidelines](#contribution-guidelines)
